@@ -15,6 +15,10 @@ function App() {
   const [loader, setLoader] = useState(false)
 
   useEffect(() => {
+    document.title = 'Weather App'
+  })
+
+  useEffect(() => {
 
     const trump = pos => {
       setCoords({
