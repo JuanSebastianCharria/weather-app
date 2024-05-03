@@ -13,6 +13,7 @@ function App() {
   const [temp, setTemp] = useState()
   const [isLoading, setIsLoading] = useState(true)
   const [loader, setLoader] = useState(false)
+  const [showMessage, setShowMessage] = useState(false)
 
   useEffect(() => {
     document.title = 'Weather App'
@@ -20,12 +21,17 @@ function App() {
 
   useEffect(() => {
 
+    setTimeout(() => {
+      setShowMessage(true)
+    }, 3000)
+
     const trump = pos => {
       setCoords({
         lat: pos.coords.latitude,
         lon: pos.coords.longitude
       })
     }
+
 
     navigator.geolocation.getCurrentPosition(trump)
   }, [])
@@ -55,10 +61,18 @@ function App() {
     <div className= 'app'>
       {
         isLoading
-          ? <Loader/>
-          : (<WeatherCard
-            weather={weather}
-            temp={temp}
+          ?(
+          <div>
+            <Loader/>
+            {
+              showMessage && <p className='paragraph__loader'>Please activate the location to see the weather in your city</p>
+            }
+          </div>
+        )
+          : (
+              <WeatherCard
+                weather={weather}
+                temp={temp}
             />
           )
       }
